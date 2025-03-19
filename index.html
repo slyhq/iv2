@@ -1,44 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Forum Interface</title>
+    <title>אידישע וועלט - Modern Interface</title>
+    <meta name="description" content="A modern interface for the אידישע וועלט phpBB forum">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="https://ext.same-assets.com/3928183243/4076539750.png" type="image/png">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1 class="site-title">Modern Forum</h1>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Recent</a></li>
-                    <li><a href="#">About</a></li>
-                </ul>
-            </nav>
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <a href="#" class="logo">
+                    <img src="https://ext.same-assets.com/3928183243/4076539750.png" alt="אידישע וועלט לאגא" class="logo-image">
+                </a>
+                <h1 class="site-title">אידישע וועלט</h1>
+            </div>
+            <div class="search-container">
+                <form class="search-form" action="#" method="get">
+                    <input type="text" placeholder="זוך..." class="search-input">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="navigation-toggle">
+                <button id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
+        <nav class="main-nav" id="main-nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#" class="nav-link active">היים</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">אלע פארומס</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">נייע תגובות</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">פאפולערע טעמעס</a></li>
+                </ul>
+                <div class="user-actions">
+                    <a href="#" class="user-link">לאג אריין</a>
+                    <span class="separator">|</span>
+                    <a href="#" class="user-link">רעגיסטריר</a>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <main class="container">
-        <div id="loading" class="loading-indicator">
-            <div class="spinner"></div>
-            <p>Loading forum data...</p>
-        </div>
+    <main>
+        <div class="container">
+            <div class="loading-container" id="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">לאדנ'ט פארום אינהאלט...</p>
+            </div>
 
-        <div id="forum-container" class="hidden">
-            <!-- Forum data will be dynamically inserted here -->
+            <div class="forum-content" id="forum-container">
+                <!-- Forum data will be dynamically inserted here -->
+            </div>
+
+            <div id="pagination" class="pagination-container">
+                <!-- Pagination will be dynamically inserted here -->
+            </div>
         </div>
     </main>
 
-    <footer>
+    <footer class="site-footer">
         <div class="container">
-            <p>This is an alternative interface for a phpBB forum. Original content is from <a href="https://here" target="here">here</a>.</p>
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3 class="footer-title">וועגן אידישע וועלט</h3>
+                    <p>דאס איז א מאדערנע אינטערפעיס פאר די אידישע וועלט פארום. דער אריגינעלער אינהאלט קומט פון <a href="https://ivelt.com" target="_blank">ivelt.com</a>.</p>
+                </div>
+                <div class="footer-section links">
+                    <h3 class="footer-title">שנעלע לינקס</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">היים</a></li>
+                        <li><a href="#">אלע פארומס</a></li>
+                        <li><a href="#">רעגיסטריר</a></li>
+                        <li><a href="#">הילף</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© <span id="current-year">2025</span> אידישע וועלט מאדערנע אינטערפעיס</p>
+            </div>
         </div>
     </footer>
 
+    <!-- Templates for JavaScript rendering -->
+    <template id="category-template">
+        <div class="forum-category">
+            <div class="category-header">
+                <h2 class="category-title"></h2>
+            </div>
+            <div class="forum-list-container">
+                <div class="forum-list"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="forum-template">
+        <div class="forum-item">
+            <div class="forum-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="forum-details">
+                <h3 class="forum-title"></h3>
+                <p class="forum-description"></p>
+            </div>
+            <div class="forum-stats">
+                <div class="stat">
+                    <span class="stat-number topics-count"></span>
+                    <span class="stat-label">טעמעס</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number posts-count"></span>
+                    <span class="stat-label">תגובות</span>
+                </div>
+            </div>
+            <div class="forum-last-post">
+                <div class="last-post-info">
+                    <span class="last-post-title"></span>
+                    <span class="last-post-by"></span>
+                    <span class="last-post-time"></span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="topic-template">
+        <div class="topic-item">
+            <div class="topic-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="topic-details">
+                <h3 class="topic-title"></h3>
+                <div class="topic-meta">
+                    <span class="topic-starter"></span>
+                    <span class="topic-time"></span>
+                </div>
+            </div>
+            <div class="topic-stats">
+                <div class="stat">
+                    <span class="stat-number replies-count"></span>
+                    <span class="stat-label">תגובות</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number views-count"></span>
+                    <span class="stat-label">געזען</span>
+                </div>
+            </div>
+            <div class="topic-last-post">
+                <div class="last-post-info">
+                    <span class="last-post-by"></span>
+                    <span class="last-post-time"></span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="post-template">
+        <div class="post-item">
+            <div class="post-header">
+                <div class="post-author-info">
+                    <div class="post-author-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="post-author-details">
+                        <span class="post-author-name"></span>
+                        <span class="post-author-rank"></span>
+                    </div>
+                </div>
+                <div class="post-meta">
+                    <span class="post-number"></span>
+                    <span class="post-time"></span>
+                </div>
+            </div>
+            <div class="post-content"></div>
+            <div class="post-footer">
+                <div class="post-actions">
+                    <button class="post-action quote">
+                        <i class="fas fa-quote-right"></i> ציטיר
+                    </button>
+                    <button class="post-action share">
+                        <i class="fas fa-share"></i> טיילן
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="breadcrumb-template">
+        <div class="breadcrumbs">
+            <ul class="breadcrumb-list">
+                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link home">היים</a></li>
+                <!-- Additional breadcrumb items will be added dynamically -->
+            </ul>
+        </div>
+    </template>
+
+    <template id="pagination-template">
+        <div class="pagination">
+            <button class="pagination-button prev" disabled>
+                <i class="fas fa-chevron-right"></i> צוריק
+            </button>
+            <div class="pagination-numbers">
+                <!-- Page numbers will be added dynamically -->
+            </div>
+            <button class="pagination-button next">
+                ווייטער <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+    </template>
+
+    <!-- Update the year in the footer -->
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+    
+    <!-- Main application script -->
     <script src="app.js"></script>
 </body>
 </html>
