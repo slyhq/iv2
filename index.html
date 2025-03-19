@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Forum Interface</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="site-title">Modern Forum</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">Recent</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="loading" class="loading-indicator">
+            <div class="spinner"></div>
+            <p>Loading forum data...</p>
+        </div>
+
+        <div id="forum-container" class="hidden">
+            <!-- Forum data will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>This is an alternative interface for a phpBB forum. Original content is from <a href="https://ivelt.com" target="ivelt.com">the original forum</a>.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
